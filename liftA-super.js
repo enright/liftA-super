@@ -25,16 +25,16 @@ SOFTWARE.
 let a = require('liftA')();
 
 // buildRequest creates a request from x
-// if an error occurs, we continue with error(err)
+// if an error or !res.ok occurs, we continue with x.first(error(err, res))
 // for responses (which may be any result code)
-// we continue with response(res)
+// we continue with x.first(response(res))
 let superA = (buildRequest, error, response) => (x, cont, p) => {
 	let aRequest = buildRequest(x);
 	aRequest.end(function (err, res) {
-		if (err) {
-			cont(error(err), p);
+		if (err || !res.ok) {
+			cont([x.first(error(err, res)), x.second()], p);
 		} else {
-			cont(response(res), p);
+			cont([x.first(response(res)), x.second()], p);
 		}
 	});
 	return p.add(() => aRequest.abort());
