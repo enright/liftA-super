@@ -32,9 +32,9 @@ let superA = (buildRequest, error, response) => (x, cont, p) => {
 	let aRequest = buildRequest(x);
 	aRequest.end(function (err, res) {
 		if (err || !res.ok) {
-			cont([x.first(error(err, res)), x.second()], p);
+			cont([error(err, res), x.second()], p);
 		} else {
-			cont([x.first(response(res)), x.second()], p);
+			cont([response(res), x.second()], p);
 		}
 	});
 	return p.add(() => aRequest.abort());
