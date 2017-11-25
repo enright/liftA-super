@@ -1,8 +1,11 @@
 {
   "name": "lifta-super",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Asynchronous event arrows using superagent",
   "main": "liftA-super.js",
+  "jshintConfig": {
+    "esversion": 6
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

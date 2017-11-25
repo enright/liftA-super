@@ -22,8 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-let a = require('liftA')();
-
 // buildRequest creates a request from x
 // if an error or !res.ok occurs, we continue with x.first(error(err, res))
 // for responses (which may be any result code)
@@ -38,7 +36,6 @@ let superA = (buildRequest, error, response) => (x, cont, p) => {
 		}
 	});
 	return p.add(() => aRequest.abort());
-}
+};
 
-a.super = { superA: superA }
-module.exports = a;
+module.exports = superA;

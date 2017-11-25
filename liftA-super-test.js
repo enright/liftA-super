@@ -11,7 +11,7 @@ let fail = (err, res) => a.Error({ err: err, res: res});
 
 // will be x.first when completes
 let response = (res) => { return { status: res.status,
-	body: res.body } };
+	body: res.body }; };
 
 let superduper = a.super.superA(areq, fail, response);
 
