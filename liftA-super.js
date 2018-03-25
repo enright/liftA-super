@@ -21,21 +21,25 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+module.exports = arw => {
+  'use strict';
 
-// buildRequest creates a request from x
-// if an error or !res.ok occurs, we continue with x.first(error(err, res))
-// for responses (which may be any result code)
-// we continue with x.first(response(res))
-let superA = (buildRequest, error, response) => (x, cont, p) => {
-	let aRequest = buildRequest(x);
-	aRequest.end(function (err, res) {
-		if (err || !res.ok) {
-			cont([error(err, res), x.second()], p);
-		} else {
-			cont([response(res), x.second()], p);
-		}
-	});
-	return p.add(() => aRequest.abort());
+  // x is the built request
+  // if an error or !res.ok occurs, we continue with Error(err, res))
+  // for all ok responses, we cotinue with the response
+  let superA = (request, cont, p) => {
+    let cancelId;
+    request.end(function (err, res) {
+      p.advance(cancelId);
+      if (err || !res.ok) {
+        return cont(arw.Error(err, res), p);
+      } else {
+        return cont(res, p);
+      }
+    });
+    cancelId = p.add(() => aRequest.abort());
+    return;
+  };
+
+  return superA;
 };
-
-module.exports = superA;
