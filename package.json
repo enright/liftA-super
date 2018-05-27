@@ -1,6 +1,6 @@
 {
   "name": "lifta-super",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Asynchronous event arrows using superagent",
   "main": "liftA-super.js",
   "jshintConfig": {

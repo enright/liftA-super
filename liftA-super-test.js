@@ -9,14 +9,6 @@ let areq = (x) => request
     Accept: 'application/json'
   });
 
-let leftOnError = x => {
-  if (x instanceof arw.Error) {
-    return arw.Left(x);
-  } else {
-    return arw.Right(x);
-  }
-};
-
 // will be x.first when fails
 let fail = x => {
   console.log('ouchies an error:', x);
@@ -29,8 +21,8 @@ let ok = x => {
   return x;
 };
 
-let superduper = areq.liftA().thenA(superA)
-  .thenA(leftOnError.liftA()).leftOrRightA(fail.liftA(), ok.liftA());
+let superduper = areq.A.thenA(superA)
+  .leftOnError.leftOrRightA(fail.A, ok.A);
 
 superduper.runA('https://jsonplaceholder.typicode.com/posts/2');
 superduper.runA('https://jibber.jabber.blither/blather/2');
