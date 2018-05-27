@@ -21,7 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-module.exports = arw => {
+module.exports = () => {
   'use strict';
 
   // x is the built request
@@ -32,7 +32,7 @@ module.exports = arw => {
     request.end(function (err, res) {
       p.advance(cancelId);
       if (err || !res.ok) {
-        return cont(arw.Error(err, res), p);
+        return cont(new Error(err, res), p);
       } else {
         return cont(res, p);
       }

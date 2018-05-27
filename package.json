@@ -1,6 +1,6 @@
 {
   "name": "lifta-super",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Asynchronous event arrows using superagent",
   "main": "liftA-super.js",
   "jshintConfig": {
@@ -12,7 +12,7 @@
   "author": "Bill Enright",
   "license": "MIT",
   "dependencies": {
-    "lifta": "0.0.12",
+    "lifta": "0.0.15",
     "superagent": "^3.6.0"
   }
 }
